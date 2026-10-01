@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NFL Imperialism | Interactive Football Map Game</title>
+  <meta name="description" content="Play NFL Imperialism with all 32 teams. Pick a team, choose matchup winners, and conquer rival territories on an interactive US map.">
+  <meta name="theme-color" content="#173f35">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="College Football Imperialism">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="NFL Imperialism | Interactive Football Map Game">
+  <meta property="og:description" content="Play NFL Imperialism with all 32 teams. Pick a team, choose matchup winners, and conquer rival territories on an interactive US map.">
+  <meta property="og:url" content="https://collegefootballimperialism.com/nfl.html">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="NFL Imperialism | Interactive Football Map Game">
+  <meta name="twitter:description" content="Play NFL Imperialism with all 32 teams. Pick a team, choose matchup winners, and conquer rival territories on an interactive US map.">
+  <link rel="canonical" href="https://collegefootballimperialism.com/nfl.html">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css">
+  <script defer src="legal-ui.js"></script>
+  <script defer src="d3.min.js"></script><script defer src="topojson.min.js"></script>
+  <script defer src="polygon-clipping.min.js"></script>
+  <script defer src="data.js"></script><script defer src="nfl-data.js"></script><script defer src="game.js"></script><script defer src="app.js"></script>
+</head>
+<body>
+  <a class="privacy-shortcut" href="privacy.html" data-legal-page>Privacy</a>
+  <main class="map-wrap" aria-label="NFL football imperialism">
+    <svg id="map" viewBox="0 0 1060 650" aria-label="Interactive US territory map. Scroll to zoom; drag to pan."></svg>
+    <div id="tooltip" role="tooltip"></div>
+  </main>
+  <div id="draw-preview" aria-live="polite" hidden></div>
+  <div id="notice" role="status" hidden></div>
+  <div id="milestone" hidden>
+    <strong id="milestone-message" role="status" aria-live="polite" aria-atomic="true"></strong>
+    <button id="close-milestone" type="button" aria-label="Close milestone">&times;</button>
+  </div>
+  <button id="random" class="primary">Pick a random team</button>
+  <dialog id="draw-dialog" aria-labelledby="draw-title">
+    <h1 id="draw-title">Who takes the field?</h1>
+    <div id="draw-window" aria-hidden="true"><div id="draw-strip"></div><span class="draw-pointer"></span></div>
+  </dialog>
+  <button id="settings" class="settings-toggle" aria-label="Settings and legal information" aria-haspopup="dialog" title="Settings and legal information">
+    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" aria-hidden="true"><path d="m9 3 .6-2h4.8l.6 2 2 1.2 2.1-.5 2.4 4.2-1.5 1.5v2.4l1.5 1.5-2.4 4.2-2.1-.5-2 1.2-.6 2H9l-.6-2-2-1.2-2.1.5-2.4-4.2 1.5-1.5V9.4L1.9 7.9l2.4-4.2 2.1.5Z" transform="translate(0 1)"/><circle cx="12" cy="12" r="3.3"/></svg>
+  </button>
+  <button id="leaderboard" class="settings-toggle leaderboard-toggle" aria-label="Leaderboards" aria-haspopup="dialog" title="Leaderboards">
+    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><path d="M9 6h12M9 12h12M9 18h12M3 6h1M3 12h1M3 18h1"/></svg>
+  </button>
+  <dialog id="leaderboard-dialog" aria-labelledby="leaderboard-title">
+    <button id="close-leaderboard" class="close" aria-label="Close leaderboards">&times;</button>
+    <h1 id="leaderboard-title">Leaderboards</h1>
+    <div class="leaderboard-tabs" role="tablist" aria-label="Team rankings">
+      <button id="size-tab" role="tab" aria-selected="true" aria-controls="leaderboard-panel">Top 25 by size</button>
+      <button id="wins-tab" role="tab" aria-selected="false" aria-controls="leaderboard-panel" tabindex="-1">Most wins</button>
+    </div>
+    <div id="leaderboard-panel" role="tabpanel" aria-labelledby="size-tab" tabindex="0"></div>
+  </dialog>
+  <dialog id="settings-dialog" aria-labelledby="settings-title">
+    <button id="close-settings" class="close" aria-label="Close settings">×</button>
+    <h1 id="settings-title">Settings</h1>
+    <label class="settings-option" for="show-state-lines"><span>Show state lines</span><input id="show-state-lines" type="checkbox" role="switch" checked></label>
+    <p>Reset the map to restore every team's starting territory and clear campaign progress.</p>
+    <button id="reset-map" class="settings-action">Reset map</button>
+    <nav class="settings-links" aria-label="Legal information and editions"><a href="legal.html" data-legal-page>Legal notice / Imprint</a><a href="privacy.html" data-legal-page>Privacy policy</a><a href="index.html">Play college edition</a></nav>
+  </dialog>
+  <dialog id="winner-dialog" aria-labelledby="winner-title" aria-describedby="winner-description">
+    <button id="close-winner" class="close" aria-label="Cancel this matchup">×</button>
+    <p id="round-label" class="eyebrow"></p>
+    <h1 id="winner-title">Who won?</h1>
+    <p id="winner-description">Select the winning team to claim the territory.</p>
+    <div id="winner-buttons"></div>
+  </dialog>
+</body>
+</html>
